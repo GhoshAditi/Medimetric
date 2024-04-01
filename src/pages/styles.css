@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+
+
+
+
+body{
+    height: 100vh;
+    background: linear-gradient(to bottom, #1a0121, #7c0585);
+}
+h1{
+    color: rgb(235, 221, 221);
+    font-family: poppins;
+    font-size: 2.5em;
+    margin-bottom:1vh ;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .dropdown-arrow {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    color: #af8ad1;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .dropdown-arrow {
+      font-size: 20px;
+    }
+  }
+  .container{
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    
+    /*border-radius: 150vh;*/
+    min-width: 450px;
+    position: absolute;
+    min-height: 200px;
+    transform: translate(-50%,-50%);
+    
+        background-color: rgba(243, 237, 245, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(11, 2, 11, 0.37); /* Glassmorphism shadow */
+        backdrop-filter: blur(2px); /* Glassmorphism backdrop filter */
+        border-radius: 20px;
+        padding: 20px;
+      }
+      
+
+#newtask{
+    position: relative;
+    padding: 30px 20px;
+    background-color: #e6bef0;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    
+}
+#newtask input{
+    width: 75%;
+    height: 45px;
+    padding: 12px;
+    color: #111111;
+    font-weight: 500;
+    position: relative;
+    border-radius: 5px;
+    font-family: 'Poppins',sans-serif;
+    font-size: 15px;
+    border: 2px solid #d1d3d4;
+}
+
+#newtask input:focus{
+    outline: none;
+    border-color: #0d75ec;
+}
+#newtask button{
+    position: relative;
+    float: right;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #0d75ec;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    width: 20%;
+    height: 45px;
+    border-radius: 5px;
+    font-family: 'Poppins',sans-serif;
+}
+#tasks{
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    margin-top: 10px;
+}
+
+.task{
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #939697;
+    cursor: pointer;
+    background-color: #c5e1e6;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    display: flex;
+}
+.task span{
+    font-family: 'Poppins',sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+.task button{
+    background-color: #780683;
+    color: #92338d;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    padding: 5px;
+    outline: 10px;
+    height: 100%;
+    width: 40px;
+    border-radius: 5px;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .dropdown-arrow {
+      font-size: 20px;
+    }
+    h1 {
+        font-size: 0.7vh; /* adjusted size for mobile */
+        margin-left: 0.5vh;
+        margin-bottom: 1vh;
+      }
+    .container {
+        margin-top: 30vh;
+    
+        margin-right: 2vh;
+      width: 80%;
+      min-width: unset;
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .dropdown-arrow {
+      font-size: 16px;
+    }
+  
+  
+    #newtask input {
+      width: 100%;
+    }
+  
+    #newtask button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  .date-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #medstart, #medend {
+    flex: 1;
+    margin-right: 10px; /* Adjust spacing between the inputs */
+  }
+  
+  #medend {
+    margin-right: 0; /* Remove margin for the last element */
+  }
+  

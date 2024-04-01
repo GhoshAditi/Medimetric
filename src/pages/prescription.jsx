@@ -1,58 +1,181 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./styles.css";
 
-function PrescriptionForm() {
-  const [patientName, setPatientName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [address, setAddress] = useState('');
-  const [date, setDate] = useState('');
-  const [doctor, setDoctor] = useState('');
-  const [medication, setMedication] = useState('');
-  const [dosage, setDosage] = useState('');
-  const [duration, setDuration] = useState('');
-  const [specialInstructions, setSpecialInstructions] = useState('');
+const MedicineComponent = () => {
+  const [medicine, setMedicine] = useState({
+    name: "",
+    dosage: "",
+    timings: "",
+    startDate: "",
+    endDate: "",
+    notes: ""
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, you can send data to a server or handle it as per your requirement
-    console.log({
-      patientName,
-      age,
-      gender,
-      address,
-      date,
-      doctor,
-      medication,
-      dosage,
-      duration,
-      specialInstructions
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMedicine({
+      ...medicine,
+      [name]: value
     });
   };
 
+  const handleSave = () => {
+    if (
+      medicine.name.trim() === "" ||
+      medicine.dosage.trim() === "" ||
+      medicine.timings.trim() === "" ||
+      medicine.startDate.trim() === "" ||
+      medicine.endDate.trim() === "" ||
+      medicine.notes.trim() === ""
+    ) {
+      alert("Please fill in all fields!");
+    } else {
+      const tasksContainer = document.querySelector("#tasks");
+      tasksContainer.innerHTML += `
+        <div class="task">
+          <span id="taskname">
+            ${medicine.name}
+          </span>
+          <button class="delete">
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </div>
+      `;
+  
+      const currentTasks = document.querySelectorAll(".delete");
+      currentTasks.forEach((task) => {
+        task.onclick = function () {
+          this.parentNode.remove();
+        };
+      });
+  
+      setMedicine({
+        name: "",
+        dosage: "",
+        timings: "",
+        startDate: "",
+        endDate: "",
+        notes: ""
+      });
+    }
+  };
+  
   return (
-    <div className="prescription-form">
-      <h1>Prescription Form</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="patient-info">
-          <h2>Patient Information</h2>
-          <input type="text" placeholder="Patient Name" value={patientName} onChange={(e) => setPatientName(e.target.value)} />
-          <input type="text" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
-          <input type="text" placeholder="Gender" value={gender} onChange={(e) => setGender(e.target.value)} />
-          <input type="text" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+    <div className="container">
+      <div className="header">
+        <h1>Medicine</h1>
+        <button className="dropdown-arrow">&#9660;</button>
+      </div>
+      <div id="newtask">
+        <div id="medname">
+          <h4>Name:</h4>
+          <input
+            type="text"
+            name="name"
+            placeholder="eg.Paracetamol 650"
+            style={{
+              marginTop: "15px",
+              marginBottom: "15px",
+              border: "3px solid #af8ad1",
+              borderRadius: "10px",
+              padding: "5px"
+            }}
+            value={medicine.name}
+            onChange={handleChange}
+          />
         </div>
-        <div className="prescription-details">
-          <h2>Prescription Details</h2>
-          <input type="text" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} />
-          <input type="text" placeholder="Doctor" value={doctor} onChange={(e) => setDoctor(e.target.value)} />
-          <input type="text" placeholder="Medication" value={medication} onChange={(e) => setMedication(e.target.value)} />
-          <input type="text" placeholder="Dosage" value={dosage} onChange={(e) => setDosage(e.target.value)} />
-          <input type="text" placeholder="Duration" value={duration} onChange={(e) => setDuration(e.target.value)} />
-          <input type="text" placeholder="Special Instructions" value={specialInstructions} onChange={(e) => setSpecialInstructions(e.target.value)} />
+        <div id="meddose">
+          <h4>Dosage:</h4>
+          <input
+            type="text"
+            name="dosage"
+            placeholder="eg. Once a fortnight"
+            style={{
+              marginTop: "15px",
+              marginBottom: "15px",
+              border: "3px solid #af8ad1",
+              borderRadius: "10px",
+              padding: "5px"
+            }}
+            value={medicine.dosage}
+            onChange={handleChange}
+          />
         </div>
-        <button type="submit">Submit</button>
-      </form>
+        <div id="medtime">
+          <h4>Timing:</h4>
+          <input
+            type="text"
+            name="timings"
+            placeholder="eg. 2pm and 9pm"
+            style={{
+              marginTop: "15px",
+              marginBottom: "15px",
+              border: "3px solid #af8ad1",
+              borderRadius: "10px",
+              padding: "5px"
+            }}
+            value={medicine.timings}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="date-container">
+          <div id="medstart">
+            <h4>Start Date:</h4>
+            <input
+              type="date" // Changed to date input for better user experience
+              name="startDate"
+              style={{
+                marginTop: "15px",
+                marginBottom: "15px",
+                border: "3px solid #af8ad1",
+                borderRadius: "10px",
+                padding: "5px"
+              }}
+              value={medicine.startDate}
+              onChange={handleChange}
+            />
+          </div>
+          <div id="medend">
+            <h4>End Date:</h4>
+            <input
+              type="date" // Changed to date input for better user experience
+              name="endDate"
+              style={{
+                marginTop: "15px",
+                marginBottom: "15px",
+                border: "3px solid #af8ad1",
+                borderRadius: "10px",
+                padding: "5px"
+              }}
+              value={medicine.endDate}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div id="mednotes">
+          <h4>Notes:</h4>
+          <input
+            type="text"
+            name="notes"
+            placeholder="Any specifications"
+            style={{
+              marginTop: "15px",
+              marginBottom: "15px",
+              border: "3px solid #af8ad1",
+              borderRadius: "10px",
+              padding: "5px"
+            }}
+            value={medicine.notes}
+            onChange={handleChange}
+          />
+        </div>
+        <button id="push" onClick={handleSave}>
+          Save
+        </button>
+      </div>
+      <div id="tasks"></div>
     </div>
   );
-}
+};
 
-export default PrescriptionForm;
+export default MedicineComponent;
