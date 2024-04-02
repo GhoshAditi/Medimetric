@@ -43,6 +43,6 @@ To run the backend locally, follow these steps:
 
 To start the backend server, run the following command:
 
-    ```bash
+   ```bash
     npm start
-    ```
+   ```
