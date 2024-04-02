@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 
 // Connect to MongoDB database
 mongoose.connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+const Schema = mongoose.Schema;
 
 // Use body-parser middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ const medicineSchema = new Schema({
     frequency: String, // Frequency of intake
     startDate: Date, // Start date of the medicine
     endDate: Date, // End date of the medicine
+    timing: String, // Timing of intake
     notes: String, // Any additional notes
 });
 const Medicine = mongoose.model('Medicine', medicineSchema);
