@@ -1,0 +1,96 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1a0121, #7c0585);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    width: 215.024px;
+    height: 38.849px;
+    transform: rotate(0.307deg);
+    flex-shrink: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.labels {
+    color: #000;
+    padding-left: 10px;
+    font-family: Kantumruy;
+    font-size: 18.199px;
+    font-style: normal;
+    font-weight: 700;
+    display: inline-block;
+    line-height: normal;
+}
+.lol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.form {
+    border-radius: 32px;
+    display: flex;
+    gap: 20px;
+    height: 68%;
+    width: 65%;
+    flex-direction: column;
+    background: linear-gradient(123deg, rgba(217, 217, 217, 0.65) 1.54%, rgba(115, 115, 115, 0.64) 100%);
+    box-shadow: 13px 16px 8px 0px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+}
+
+.inputs {
+    height: 2rem;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 23.258px;
+    background: linear-gradient(123deg, rgba(245, 255, 136, 0.34) 1.54%, rgba(244, 249, 188, 0.34) 100%);
+}
+
+.button {
+    color: #FFF;
+    font-family: Monda;
+    font-size: 21.2px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 23.964px;
+    background: linear-gradient(180deg, #D71BE8 0%, rgba(105, 4, 140, 0.66) 100%);
+    padding: 10px;
+    box-shadow: 5px 7px 4px 0px #100119;
+    width: fit-content;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Kantumruy;
+    
+}
