@@ -1,181 +1,147 @@
-import React, { useState } from "react";
-import "./styles.css";
+import { useState } from "react";
+import styles from './prescription.module.css'
+import BasicTimePicker from "../Components/DateRange/time";
+import axios from 'axios';
 
-const MedicineComponent = () => {
-  const [medicine, setMedicine] = useState({
+
+function Prescription({ togglePrescription }) {
+
+  const BACKEND_URL = 'http://localhost:3000';
+  const [prescription, setPrescription] = useState({
     name: "",
     dosage: "",
-    timings: "",
+    frequency: "",
     startDate: "",
     endDate: "",
-    notes: ""
+    time: "",
+    note: "",
   });
-
+  const [error, setError] = useState(false);
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMedicine({
-      ...medicine,
-      [name]: value
-    });
+    setError(false);  
+    setPrescription((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleSave = () => {
-    if (
-      medicine.name.trim() === "" ||
-      medicine.dosage.trim() === "" ||
-      medicine.timings.trim() === "" ||
-      medicine.startDate.trim() === "" ||
-      medicine.endDate.trim() === "" ||
-      medicine.notes.trim() === ""
-    ) {
-      alert("Please fill in all fields!");
-    } else {
-      const tasksContainer = document.querySelector("#tasks");
-      tasksContainer.innerHTML += `
-        <div class="task">
-          <span id="taskname">
-            ${medicine.name}
-          </span>
-          <button class="delete">
-            <i class="far fa-trash-alt"></i>
-          </button>
-        </div>
-      `;
-  
-      const currentTasks = document.querySelectorAll(".delete");
-      currentTasks.forEach((task) => {
-        task.onclick = function () {
-          this.parentNode.remove();
-        };
-      });
-  
-      setMedicine({
-        name: "",
-        dosage: "",
-        timings: "",
-        startDate: "",
-        endDate: "",
-        notes: ""
-      });
-    }
+  const handleTimeChange = (selectedTime) => {
+    setPrescription((prev) => ({
+      ...prev,
+      time: selectedTime.format('HH:mm'),
+    }));
   };
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(prescription).some(value => value === "")) {
+      setError(true);
+      console.log("Empty fields:", prescription);
+      return;
+    }
+    
+
+    try {
+      // Make POST request to backend
+      const response = await axios.post(`${BACKEND_URL}/medicine`, prescription);
+      console.log(response.data); // Log the response data
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    console.log(prescription);
+    // togglePrescription();
+  };
+
   return (
-    <div className="container">
-      <div className="header">
-        <h1>Medicine</h1>
-        <button className="dropdown-arrow">&#9660;</button>
-      </div>
-      <div id="newtask">
-        <div id="medname">
-          <h4>Name:</h4>
+    <div className={styles.container}>
+
+      <h1 className={styles.heading}>PESCRIPTION</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.flex}>
+          <label htmlFor="name"
+            className={styles.labels}>Name</label>
           <input
             type="text"
             name="name"
-            placeholder="eg.Paracetamol 650"
-            style={{
-              marginTop: "15px",
-              marginBottom: "15px",
-              border: "3px solid #af8ad1",
-              borderRadius: "10px",
-              padding: "5px"
-            }}
-            value={medicine.name}
+            className={styles.inputs}
+            value={prescription.name}
             onChange={handleChange}
           />
         </div>
-        <div id="meddose">
-          <h4>Dosage:</h4>
+
+        <div
+          className={styles.flex}
+        >
+          <label htmlFor="dosage"
+            className={styles.labels}>Dosage</label>
           <input
             type="text"
             name="dosage"
-            placeholder="eg. Once a fortnight"
-            style={{
-              marginTop: "15px",
-              marginBottom: "15px",
-              border: "3px solid #af8ad1",
-              borderRadius: "10px",
-              padding: "5px"
-            }}
-            value={medicine.dosage}
+            value={prescription.dosage}
             onChange={handleChange}
+            className={styles.inputs}
           />
         </div>
-        <div id="medtime">
-          <h4>Timing:</h4>
+
+        <div
+          className={styles.flex}
+        >
+          <label htmlFor="frequency"
+            className={styles.labels}>Frequency</label>
+          <input
+            type="number"
+            name="frequency"
+            value={prescription.frequency}
+            onChange={handleChange}
+            className={styles.inputs}
+          />
+        </div>
+        <div className={styles.flex}>
+
+          <label htmlFor="startDate" className={styles.labels}>Start date </label>
+
+          <input
+            type="date"
+            name="startDate"
+            value={prescription.startDate}
+            onChange={handleChange}
+            className={styles.inputs}
+          />
+        </div>
+        <div className={styles.flex}>
+          <label htmlFor="endDate" className={styles.labels}>End date </label>
+          <input
+            type="date"
+            name="endDate"
+            value={prescription.endDate}
+            onChange={handleChange}
+            className={styles.inputs}
+          />
+        </div>
+        <BasicTimePicker  onChange={handleTimeChange}/>
+        <div className={styles.flex}>
+          <label htmlFor="note"
+            className={styles.labels}>Note</label>
           <input
             type="text"
-            name="timings"
-            placeholder="eg. 2pm and 9pm"
-            style={{
-              marginTop: "15px",
-              marginBottom: "15px",
-              border: "3px solid #af8ad1",
-              borderRadius: "10px",
-              padding: "5px"
-            }}
-            value={medicine.timings}
+            name="note"
+            value={prescription.note}
             onChange={handleChange}
+            className={styles.inputs}
           />
         </div>
-        <div className="date-container">
-          <div id="medstart">
-            <h4>Start Date:</h4>
-            <input
-              type="date" // Changed to date input for better user experience
-              name="startDate"
-              style={{
-                marginTop: "15px",
-                marginBottom: "15px",
-                border: "3px solid #af8ad1",
-                borderRadius: "10px",
-                padding: "5px"
-              }}
-              value={medicine.startDate}
-              onChange={handleChange}
-            />
+        <div className={styles.flex}>
+          <div className={styles.btn}>
+            <button type="submit"
+              className={styles.button}
+            >Submit</button>
           </div>
-          <div id="medend">
-            <h4>End Date:</h4>
-            <input
-              type="date" // Changed to date input for better user experience
-              name="endDate"
-              style={{
-                marginTop: "15px",
-                marginBottom: "15px",
-                border: "3px solid #af8ad1",
-                borderRadius: "10px",
-                padding: "5px"
-              }}
-              value={medicine.endDate}
-              onChange={handleChange}
-            />
-          </div>
+            <div className={styles.flex}>
+              {error ? <p className={styles.error}>Please fill all the fields</p> : null}
+            </div>
         </div>
-        <div id="mednotes">
-          <h4>Notes:</h4>
-          <input
-            type="text"
-            name="notes"
-            placeholder="Any specifications"
-            style={{
-              marginTop: "15px",
-              marginBottom: "15px",
-              border: "3px solid #af8ad1",
-              borderRadius: "10px",
-              padding: "5px"
-            }}
-            value={medicine.notes}
-            onChange={handleChange}
-          />
-        </div>
-        <button id="push" onClick={handleSave}>
-          Save
-        </button>
-      </div>
-      <div id="tasks"></div>
+      </form>
     </div>
   );
-};
+}
 
-export default MedicineComponent;
+export default Prescription;

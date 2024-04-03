@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Prescription from './pages/prescription';
 function App() {
-  const [count, setCount] = useState(0);
   const [showPrescription, setShowPrescription] = useState(false);
 
   const togglePrescription = () => {
@@ -14,10 +11,13 @@ function App() {
   return (
     <>
       
-      <button onClick={togglePrescription}>
-        {showPrescription ? ' ' : 'Show Prescription'}
-      </button>
-      {showPrescription && <Prescription />}
+      <div >
+        {showPrescription ? (
+          <Prescription togglePrescription={togglePrescription} />
+        ) : (
+          <button onClick={togglePrescription}>Add Prescription</button>
+        )}
+      </div>
     </>
   );
 }
